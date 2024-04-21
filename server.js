@@ -1,16 +1,7 @@
 const http = require('http');
 const { v4: uuidv4 } = require('uuid');
 const errHandle = require('./errorHandle');
-const todos = [
-  // {
-  //   "title": "今天要刷題",
-  //   "id": uuidv4(),
-  // },
-  // {
-  //   "title": "今天要運動",
-  //   "id": uuidv4(),
-  // }
-];
+const todos = [];
 
 
 const requestListener = (req, res) =>{
@@ -95,7 +86,6 @@ const requestListener = (req, res) =>{
     } else {
       errHandle(res);
     }
-    // console.log(index, id);
   } else if (req.url.startsWith("/todos/") && req.method === "PATCH") {
     req.on("end", () => {
       try {
@@ -136,4 +126,5 @@ const requestListener = (req, res) =>{
 };
 
 const server = http.createServer(requestListener);
-server.listen(3005);
+// 雲服務會自動指定 port，所以不用指定 port
+server.listen(process.env.PORT || 3005);
